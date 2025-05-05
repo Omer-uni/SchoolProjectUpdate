@@ -1,0 +1,61 @@
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ticket Paneli</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 0; padding: 20px; background-color: #f5f5f5; }
+    .baslik { max-width: 800px; margin: auto; background: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+    h1 { text-align: center; color: #333; }
+    table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+    th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+    th { background-color: #f2f2f2; }
+    .buton { display: inline-block; padding: 2px 6px; margin-right: 5px; background-color: #000; color: #fff; text-decoration: none; border-radius: 4px; transition: background-color .2s; }
+    .buton:hover { background-color: #28a745; }
+    .actions { text-align: center; margin-top: 30px; }
+    .return { display: inline-block; padding: 10px 20px; background-color: #000; color: #fff; text-decoration: none; border-radius: 4px; transition: background-color .2s; }
+    .return:hover { background-color: #28a745; }
+    p { text-align: center; margin-top: 20px; color: #666; }
+  </style>
+</head>
+<body>
+  <div class="baslik">
+    <h1>Ticket Paneli</h1>
+
+    {% if tickets %}
+    <table>
+      <tr>
+        <th>ID</th>
+        <th>Ad Soyad</th>
+        <th>Konu</th>
+        <th>Öncelik</th>
+        <th>Durum</th>
+        <th>Aksiyon</th>
+      </tr>
+      {% for ticket in tickets %}
+      <tr>
+        <td>{{ ticket.id }}</td>
+        <td>{{ ticket.firstname }} {{ ticket.lastname }}</td>
+        <td>{{ ticket.subject }}</td>
+        <td>{{ ticket.priority }}</td>
+        <td>{{ ticket.status }}</td>
+        <td>
+          <a href="{{ url_for('ticket_detail', ticket_id=ticket.id) }}" class="buton">Görüntüle</a>
+          <a href="{{ url_for('edit_ticket',   ticket_id=ticket.id) }}" class="buton">Düzenle</a>
+          <form action="{{ url_for('delete_ticket', ticket_id=ticket.id) }}" method="post" style="display:inline;">
+            <button type="submit" class="buton" onclick="return confirm('Bu ticketı silmek istediğinize emin misiniz?');">Sil</button>
+          </form>
+        </td>
+      </tr>
+      {% endfor %}
+    </table>
+    {% else %}
+    <p>Henüz ticketiniz yok.</p>
+    {% endif %}
+
+    <div class="actions">
+      <a href="{{ url_for('index') }}" class="return">Ana Sayfaya Dön</a>
+    </div>
+  </div>
+</body>
+</html>

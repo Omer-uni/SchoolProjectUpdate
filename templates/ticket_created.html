@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ticket Oluşturuldu</title>
+  <style>
+    body { font-family: Arial, sans-serif; background-color: #f5f5f5; padding: 20px; }
+    .baslik { max-width: 800px; margin: auto; background: #fff; padding: 20px; border-radius: 8px; 
+              box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+    h1 { text-align: center; color: #333; }
+    p { font-size: 16px; margin: 10px 0; }
+    .buton {
+      display: inline-block; margin-top: 15px; padding: 10px 20px; background-color: #000; 
+      color: #fff; text-decoration: none; border-radius: 4px; transition: background-color .2s;
+    }
+    .buton:hover { background-color: #28a745; }
+  </style>
+</head>
+<body>
+  <div class="baslik">
+    <h1>Ticket Başarıyla Oluşturuldu</h1>
+    <p><strong>Ad Soyad:</strong> {{ ticket.firstname }} {{ ticket.lastname }}</p>
+    <p><strong>E-posta:</strong> {{ ticket.email }}</p>
+    <p><strong>Konu:</strong> {{ ticket.subject }}</p>
+    <p><strong>Öncelik:</strong> {{ ticket.priority }}</p>
+    <p><strong>Durum:</strong> {{ ticket.status }}</p>
+    {% if ticket.file %}
+      <p><strong>Dosya Eki:</strong> 
+         <a href="{{ url_for('uploaded_file', filename=ticket.file) }}">{{ ticket.file }}</a>
+      </p>
+    {% endif %}
+    <a href="{{ url_for('dashboard') }}" class="buton">Ticket Paneline Dön</a>
+  </div>
+</body>
+</html>

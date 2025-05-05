@@ -1,0 +1,44 @@
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ticket Düzenle</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 0; padding: 20px; background-color: #f5f5f5; }
+    .baslik { max-width: 800px; margin: auto; background: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); }
+    h1 { text-align: center; color: #333; margin-bottom: 20px; }
+    .formgrup { margin-bottom: 15px; }
+    label { display: block; margin-bottom: 5px; color: #555; }
+    input, textarea, select { width: 100%; padding: 8px; box-sizing: border-box; border: 1px solid #ccc; border-radius: 4px; }
+    .buton { display: inline-block; margin-top: 10px; padding: 10px 20px; background-color: #000; color: #fff; text-decoration: none; border-radius: 4px; transition: background-color .2s; }
+    .buton:hover { background-color: #28a745; }
+    .submit { display: block; width: 100%; margin-top: 20px; padding: 10px; background-color: #000; color: #fff; border: none; border-radius: 4px; font-size: 16px; cursor: pointer; transition: background-color .2s; }
+    .submit:hover { background-color: #28a745; }
+  </style>
+</head>
+<body>
+  <div class="baslik">
+    <h1>Ticket Düzenle</h1>
+    <form method="POST" action="{{ url_for('edit_ticket', ticket_id=ticket.id) }}">
+      <div class="formgrup">
+        <label for="subject">Konu:</label>
+        <input type="text" id="subject" name="subject" value="{{ ticket.subject }}" required>
+      </div>
+      <div class="formgrup">
+        <label for="message">Mesaj:</label>
+        <textarea id="message" name="message" rows="4" required>{{ ticket.message }}</textarea>
+      </div>
+      <div class="formgrup">
+        <label for="status">Durum:</label>
+        <select id="status" name="status">
+          <option value="İnceleme Bekliyor" {% if ticket.status == 'İnceleme Bekliyor' %}selected{% endif %}>İnceleme Bekliyor</option>
+          <option value="Çözüm Bekliyor" {% if ticket.status == 'Çözüm Bekliyor' %}selected{% endif %}>Çözüm Bekliyor</option>
+          <option value="Çözüldü" {% if ticket.status == 'Çözüldü' %}selected{% endif %}>Çözüldü</option>
+        </select>
+      </div>
+      <button type="submit" class="submit">Kaydet</button>
+      <a href="{{ url_for('dashboard') }}" class="buton">Geri Dön</a>
+    </form>
+  </div>
+</body>
+</html>

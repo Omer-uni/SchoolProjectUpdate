@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ana Sayfa</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 0; padding: 20px; background-color: #f5f5f5; }
+    .baslik { max-width: 800px; margin: auto; background: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1); text-align: center; }
+    .buton { display: inline-block; margin: 10px 5px; padding: 10px 20px; background-color: #000; color: #fff; text-decoration: none; border-radius: 4px; transition: background-color .2s; }
+    .buton:hover { background-color: #28a745; }
+  </style>
+</head>
+<body>
+  <div class="baslik">
+    <h1>Hoş Geldiniz</h1>
+    {% if not current_user.is_authenticated %}
+      <a href="{{ url_for('login') }}"    class="buton">Giriş Yap</a>
+      <a href="{{ url_for('register') }}" class="buton">Kayıt Ol</a>
+    {% else %}
+      <a href="{{ url_for('create_ticket') }}" class="buton">Yeni Ticket Oluştur</a>
+      <a href="{{ url_for('dashboard') }}"     class="buton">Tüm Ticket’lar</a>
+      <a href="{{ url_for('logout') }}"        class="buton">Çıkış Yap</a>
+    {% endif %}
+  </div>
+</body>
+</html>
